@@ -16,15 +16,14 @@
 ---
 
 ##  Structure du projet
-
-\`\`\`
-the-wave-music/
-├── app/                  # Code principal de l'application (routes, models, etc.)
-├── instance/             # Configs spécifiques à l'environnement (facultatif)
-├── requirements.txt      # Dépendances Python
-├── thewave-*.sql         # Dump PostgreSQL complet
-└── README.md             # Ce fichier
-\`\`\`
+```
+The-Wave-Music/
+├── app/ # Code principal de l'application (routes, models, etc.)
+├── instance/ # Configs spécifiques à l'environnement (facultatif)
+├── requirements.txt # Dépendances Python
+├── thewave-*.sql # Dump PostgreSQL complet
+└── README.md # Ce fichier
+```
 
 ---
 
@@ -40,56 +39,36 @@ the-wave-music/
 
 1. Cloner ce dépôt :
 
-\`\`\`bash
-git clone https://github.com/Vincent-P-essy/the-wave-music.git
-cd the-wave-music
-\`\`\`
+```bash
+git clone https://github.com/Vincent-P-essy/The-Wave-Music.git
+cd The-Wave-Music
+``` 
 
-2. Créer et activer un environnement virtuel :
-
-\`\`\`bash
+Créer et activer un environnement virtuel :
 python3 -m venv venv
 source venv/bin/activate
-\`\`\`
-
-3. Installer les dépendances :
-
-\`\`\`bash
+Installer les dépendances :
 pip install -r requirements.txt
-\`\`\`
+Créer la base PostgreSQL :
+createdb thewave
+Importer la structure + données :
+psql -U postgres -d thewave -f thewave-2024_12_11_21_42_00-dump.sql
 
-4. Créer la base PostgreSQL :
+(Vous pouvez adapter le nom du fichier .sql si besoin)
 
-\`\`\`bash
-createdb -h localhost -U postgres thewave
-\`\`\`
-
-5. Importer la structure + données :
-
-\`\`\`bash
-psql -h localhost -U postgres -d thewave -f thewave-2024_12_11_21_42_00-dump.sql
-\`\`\`
-
-6. Lancer le serveur Flask :
-
-\`\`\`bash
+Configurer les variables d'environnement :
 export FLASK_APP=app.main:create_app
 export FLASK_ENV=development
+export DATABASE_URL=postgresql://postgres:password@localhost/thewave
+
+(Remplacer password par votre mot de passe PostgreSQL)
+
+Lancer le serveur Flask :
 flask run
-\`\`\`
+Accéder à l'application :
 
-7. Accèder à l'application :
+http://127.0.0.1:5000
 
-[http://127.0.0.1:5000](http://127.0.0.1:5000)
+Auteur
 
----
-
-##  Auteur
-
-Développé par Vincent Plessy — [github.com/Vincent-P-essy](https://github.com/Vincent-P-essy)
-
----
-
-##  Licence
-
-Voir fichier `LICENSE`.
+Développé par Vincent Plessy — github.com/Vincent-P-essy
