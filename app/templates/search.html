@@ -1,0 +1,67 @@
+{% extends '_base.html' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center;">Recherche</h1>
+
+<!-- Formulaire de recherche -->
+<form method="POST" action="{{ url_for('main.search') }}" style="max-width: 600px; margin: 2rem auto;">
+    <div style="margin-bottom: 1rem;">
+        <label for="keyword">Mot-clé :</label>
+        <input type="text" id="keyword" name="keyword" placeholder="Titre, artiste, genre..." required
+               style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 5px;">
+    </div>
+    <div style="margin-bottom: 1rem;">
+        <label for="search_type">Rechercher parmi :</label>
+        <select id="search_type" name="search_type" required style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 5px;">
+            <option value="morceaux">Morceaux</option>
+            <option value="artistes">Artistes</option>
+            <option value="albums">Albums</option>
+            <option value="playlists">Playlists</option>
+        </select>
+    </div>
+    <button type="submit" style="padding: 0.5rem 1rem; background-color: #ff6347; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+        Rechercher
+    </button>
+</form>
+
+<!-- Résultats -->
+{% if results[search_type] %}
+<h2>Résultats pour {{ search_type }}</h2>
+<ul style="list-style: none; padding: 0;">
+    {% for result in results[search_type] %}
+    <li style="background: #fff; margin-bottom: 1rem; padding: 1rem; border: 1px solid #ccc; border-radius: 5px;">
+        <strong>{{ result.titreMorceau if search_type == 'morceaux' else result.nom ~ ' ' ~ result.prenom if search_type == 'artistes' else result.titreAlbum if search_type == 'albums' else result.titrePlaylist }}</strong><br>
+        {% if search_type == 'morceaux' %}
+            Durée : {{ result.duree | default('N/A') }} sec<br>
+            {% if result.paroles %}
+                Paroles : {{ result.paroles[:100] }}...<br>
+            {% else %}
+                Paroles : N/A<br>
+            {% endif %}
+        {% elif search_type == 'artistes' %}
+            Nationalité : {{ result.nationalite | default('N/A') }}<br>
+            Date de naissance : {{ result.dateNaissance | default('N/A') }}<br>
+        {% elif search_type == 'albums' %}
+            Date de parution : {{ result.dateParution | default('N/A') }}<br>
+            {% if result.description %}
+                Description : {{ result.description[:100] }}...<br>
+            {% else %}
+                Description : N/A<br>
+            {% endif %}
+        {% elif search_type == 'playlists' %}
+            Visibilité : {{ result.visibilite | default('N/A') }}<br>
+            {% if result.description %}
+                Description : {{ result.description[:100] }}...<br>
+            {% else %}
+                Description : N/A<br>
+            {% endif %}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% elif request.method == 'POST' %}
+<p>Aucun résultat trouvé pour votre recherche.</p>
+{% endif %}
+{% endblock %}

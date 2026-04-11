@@ -1,0 +1,29 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>🎵 Morceau: {{ morceau.titreMorceau }}</h1></br>
+    <p><strong>Durée :</strong> {{ morceau.duree // 60 }} minutes {{ morceau.duree % 60 }} secondes</p>
+    {% if morceau.paroles %}
+    <p><strong>Paroles :</strong></br>{{ morceau.paroles }}</p>
+    {% else %}
+    <p><strong>Paroles :</strong>⚠️ Aucune paroles associée à ce morceau.</p>
+    {% endif %}
+
+    <h3>Artistes</h3>
+    {% if artistes %}
+    <div class="list-container">
+        {% for artiste in artistes %}
+        <div class="card">
+            <div class="card-header">👤 {{ artiste.nom }} {{ artiste.prenom }}</div>
+            <div class="card-body">
+                <p>Rôle: <span class="primary">{{ artiste.role|capitalize }}</span></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Aucun artiste associé à ce morceau.</p>
+    {% endif %}
+</div>
+{% endblock %}

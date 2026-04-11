@@ -1,0 +1,22 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<h1>Liste des Groupes</h1></br>
+
+<div class="list-container">
+    {% for groupe in groupes %}
+        <a href="{{ url_for('main.groupe_page', numGrp=groupe.numGrp) }}" class="card-link" style="text-decoration: none;">
+            <div class="card">
+                <div class="card-header">👥 {{ groupe.nomGroupe }}</div>
+                <div class="card-body">
+                    <p>
+                        Genre Musical :  <span class="highlight">{{ groupe.gerneMusical or "Non spécifié" }}</span><br>
+                        Nationalité : <span class="highlight">{{ groupe.nationalite or "Non spécifiée" }}</span><br>
+                        Créé en : <span class="highlight">{{ groupe.dateCreation.strftime('%Y') if groupe.dateCreation else "Date inconnue" }}</span>
+                    </p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

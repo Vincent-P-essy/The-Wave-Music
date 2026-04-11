@@ -1,0 +1,23 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>📀 Catalogue des Albums</h1></br>
+
+    <div class="list-container">
+        {% for album in albums %}
+        <a href="{{ url_for('main.album_page', album_id=album.numAlb) }}" class="card-link" style="text-decoration: none;">
+            <div class="card mb-4">
+                <div class="card-header">📀 {{ album.titreAlbum }}</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Date de Parution: <span class="highlight">{{ album.dateParution.strftime('%d/%m/%Y') }}</span><br>
+                        Description: {{ album.description[:100] }}...
+                    </p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

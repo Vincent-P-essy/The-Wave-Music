@@ -1,0 +1,20 @@
+{% extends "_base.html" %}
+
+{% block content %}
+    <h1>Vos Playlists</h1></br>
+    {% for playlist in playlists %}
+        <a href="{{ url_for('main.playlist_page', playlist_id=playlist.numPlay) }}" class="card-link" style="text-decoration: none;">
+            <div class="card">
+                <div class="card-header">💿 {{ playlist.titrePlaylist }}</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <p>{{ playlist.description }}</p>
+                        <p>Date de création : {{ playlist.dateCreation }}</p>
+                    </p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</body>
+</html>
+{% endblock %}

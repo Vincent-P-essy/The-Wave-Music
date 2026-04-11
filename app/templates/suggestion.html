@@ -1,0 +1,70 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Suggestions Personnalisées</h1></br>
+
+    <h3>✨ Les chansons que vous aimeriez peut-être ...</h3>
+    <div class="list-container">
+        {% for morceau in morceaux_suggeres %}
+        <a href="{{ url_for('main.morceau_page', morceau_id=morceau.numMorc) }}" class="card-link" style="text-decoration: none;">
+            <div class="card-morceau">
+                <div class="card-header">🎵 {{ morceau.titreMorceau }}</div>
+                <div class="card-body">
+                    <p><strong>Durée :</strong> {{ morceau.duree // 60 }} minutes {{ morceau.duree % 60 }} secondes</p>
+                    <p><strong>Artistes :</strong>
+                            {% for artiste in morceau.artistes %}
+                                {{ artiste }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <h3>Artistes que vous aimez</h3>
+    <div class="list-container">
+        {% for artiste in top_artistes %}
+        <a href="{{ url_for('main.artiste_page', artiste_id=artiste.numArt) }}" class="card-link" style="text-decoration: none;">
+            <div class="card">
+                <div class="card-header">👤 {{ artiste.nom }} {{ artiste.prenom }}</div>
+                <div class="card-body">
+                    <p>Vous avez écouté cet artiste <span class="highlight">{{ artiste.total_ecoutes }}</span> fois.</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <h3>Groupes à découvrir</h3>
+    <div class="list-container">
+        {% for groupe in groupes_suggeres %}
+        <a href="{{ url_for('main.groupe_page', numGrp=groupe.numGrp) }}" class="card-link" style="text-decoration: none;">
+            <div class="card">
+                <div class="card-header">👥 {{ groupe.nomGroupe }}</div>
+                <div class="card-body">
+                    <p>Popularité parmi vos pairs : <span class="highlight">{{ groupe.popularite }}</span></p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <h3>Playlists pour vous</h3>
+    <div class="list-container">
+        {% for playlist in playlists_suggerees %}
+        <a href="{{ url_for('main.playlist_page', playlist_id=playlist.numPlay) }}" class="card-link" style="text-decoration: none;">
+            <div class="card">
+                <div class="card-header"> {{ playlist.titrePlaylist }}</div>
+                <div class="card-body">
+                    <p>Description : {{ playlist.description or "Aucune description" }}</p>
+                    <p>Visibilité : <strong>{{ playlist.visibilite }}</strong></p>
+                    <p>Créée par : <strong>{{ playlist.pseudonyme }}</strong></p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

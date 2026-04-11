@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+{% if current_user.is_authenticated %}
+    <h1>The Wave</h1></br>
+    <h2>🔝 Les morceaux les plus écoutés</h2>
+
+    <div class="list-container">
+        {% for morceau in morceaux %}
+        <div class="card-morceau">
+            <div class="card-header">
+                <h5 class="song-title">🎵 {{ morceau.titreMorceau }} <span class="badge" style="font-size: 0.8em;">🎧 {{ morceau.Nb_Ecoutes_Uniques }}</span></h5>
+            </div>
+            <div class="card-body">
+                <p><i class="fas fa-clock"></i> Durée: <span class="highlight">{{ morceau.duree // 60 }} minutes {{ morceau.duree % 60 }} secondes</span></p>
+                <p><i class="fas fa-comment-alt"></i> Paroles: <span class="lyrics-preview">{{ morceau.paroles[:100] if morceau.paroles else 'Pas de paroles disponible...'}}...</span></p></br>
+                <form action="{{ url_for('main.increment_ecoute', morceau_id=morceau.numMorc) }}" method="POST">
+                    <button type="submit" class="btn btn-success">▶︎ Ecouter</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <h1>Bienvenue sur The Wave !</h1>
+    <p>Découvrez les morceaux les plus écoutés et bien plus encore. <a href="/login" style="color: blue; font-weight: bold; text-decoration: none;">Connectez-vous</a> pour profiter pleinement de notre plateforme.</p>
+{% endif %}
+{% endblock %}

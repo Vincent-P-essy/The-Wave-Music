@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<h1>Liste des Artistes</h1></br>
+
+<div class="list-container">
+    {% for artist in artists %}
+    <a href="{{ url_for('main.artiste_page', artiste_id=artist.numArt) }}" class="card-link" style="text-decoration: none;">
+        <div class="card">
+            <div class="card-header">👤 {{ artist.nom }} {{ artist.prenom }}</div>
+            <div class="card-body">
+                <p class="card-text">
+                    Nationalité: <span class="highlight">{{ artist.nationalite }}</span></br>
+                    Date de Naissance: <span class="highlight">{{ artist.dateNaissance.strftime('%d/%m/%Y') }}</span></br>
+                    Date de Décès: <span class="highlight">{{ artist.dateDeces.strftime('%d/%m/%Y') if artist.dateDeces else '-' }}</span>
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

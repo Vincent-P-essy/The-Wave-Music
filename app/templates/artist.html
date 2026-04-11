@@ -1,0 +1,64 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<style>
+    .list-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .card {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="container mt-5">
+    <h1>{{ artiste.nom }} {{ artiste.prenom }}</h1></br>
+    <p><strong>Nationalité :</strong> {{ artiste.nationalite }}</p>
+    <p><strong>Date de Naissance :</strong> {{ artiste.dateNaissance.strftime('%d/%m/%Y') }}</p>
+    {% if artiste.dateDeces %}
+    <p><strong>Date de Décès :</strong> {{ artiste.dateDeces.strftime('%d/%m/%Y') }}</p>
+    {% endif %}
+
+    <h3>Groupes</h3>
+    {% if groupes %}
+    <div class="list-container">
+        {% for participation in groupes %}
+        <div class="card mb-4">
+            <div class="card-header">👥 {{ participation.nomGroupe }}</div>
+            <div class="card-body">
+                <p>
+                    Rôle: <span style="color:blue; font-weight: bold;">{{ participation.role|capitalize }}</span><br>
+                    Date d'entrée : <span class="highlight">{{ participation.dateEntree.strftime('%d/%m/%Y') if participation.dateEntree else "?" }}</span><br>
+                    Date de sortie : <span class="highlight">{{ participation.dateSortie.strftime('%d/%m/%Y') if participation.dateSortie else "Aujourd'hui" }}</span>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Pas de groupe associé.</p>
+    {% endif %}
+
+    <h3>Morceaux</h3>
+    {% if morceaux %}
+    <div class="list-container">
+        {% for morceau in morceaux %}
+        <div class="card">
+            <div class="card-header">🎵 {{ morceau.titreMorceau }}</div>
+            <div class="card-body">
+                <p>
+                    Durée : <span class="highlight">{{ morceau.duree // 60 }} minutes {{ morceau.duree % 60 }} secondes</span></br>
+                    Paroles : {{ morceau.paroles }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Pas de morceaux associés.</p>
+    {% endif %}
+</div>
+{% endblock %}

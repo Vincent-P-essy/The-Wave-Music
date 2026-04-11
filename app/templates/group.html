@@ -1,0 +1,54 @@
+{% extends '_base.html' %}
+
+{% block title %}{{ groupe.nomGroupe }}{% endblock %}
+
+{% block content %}
+<style>
+    .list-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .card {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+</style>
+
+<h1>{{ groupe.nomGroupe }}</h1>
+<p><strong>Genre musical:</strong> {{ groupe.gerneMusical }}</p>
+<p><strong>Nationalité:</strong> {{ groupe.nationalite }}</p>
+<p><strong>Date de création:</strong> {{ groupe.dateCreation }}</p></br>
+
+<h2>Nombre de suiveurs</h2>
+<p>{{ followers_count }} utilisateurs suivent ce groupe.</p></br>
+
+<h2>Membres du groupe</h2>
+<div class="list-container">
+    {% for membre in membres %}
+        <div class="card">
+            <div class="card-header">👤 {{ membre.nom }} {{ membre.prenom }}</div>
+            <div class="card-body">
+                <p>Rôle: <span style="color:blue; font-weight: bold;">{{ membre.role|capitalize }}</span></p>
+                <p>Nationalité: <span class="highlight">{{ membre.nationalite }}</span></p>
+                <p>Date de naissance: <span class="highlight">{{ membre.dateNaissance }}</span></p>
+                <p>Date de décès: <span class="highlight">{{ membre.dateDeces if membre.dateDeces else '-' }}</span></p>
+            </div>
+        </div>
+    {% endfor %}
+</div></br>
+
+<h2>Albums du groupe</h2>
+<div class="list-container">
+    {% for album in albums %}
+    <div class="card">
+        <div class="card-header">💿 {{ album.titreAlbum }}</div>
+        <div class="card-body">
+            <p>Date de parution: <span class="highlight">{{ album.dateParution }}</span></p>
+            <p>Description: <span class="highlight">{{ album.description }}</span></p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

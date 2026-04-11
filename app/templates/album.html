@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<style>
+    .list-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .card {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="container mt-5">
+    <h1>Album: {{ album.titreAlbum }}</h1></br>
+    <p><strong>Date de Parution :</strong> {{ album.dateParution.strftime('%d/%m/%Y') }}</p>
+    <p><strong>Description :</strong> {{ album.description }}</p>
+    {% if album.imageCouverture %}
+    <img src="data:image/jpeg;base64,{{ album.imageCouverture }}" alt="{{ album.titreAlbum }}" style="max-width: 300px; height: auto; margin: 20px 0;">
+    {% endif %}
+
+    <h3>Liste des Morceaux</h3>
+    {% if morceaux %}
+    <div class="list-container">
+        {% for morceau in morceaux %}
+        <div class="card-morceau">
+            <div class="card-header">
+                <h5 class="song-title">🎵 {{ morceau.titreMorceau }}</h5>
+            </div>
+            <div class="card-body">
+                <p><i class="fas fa-clock"></i> Durée: <span class="highlight">{{ morceau.duree // 60 }} minutes {{ morceau.duree % 60 }} secondes</span></p>
+                <p><i class="fas fa-comment-alt"></i> Paroles: <span class="lyrics-preview">{{ morceau.paroles[:100] if morceau.paroles else 'Pas de paroles disponible...'}}...</span></p></br>
+                <form action="{{ url_for('main.increment_ecoute', morceau_id=morceau.numMorc) }}" method="POST">
+                    <button type="submit" class="btn btn-success">▶︎ Ecouter</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Aucun morceau associé à cet album.</p>
+    {% endif %}
+</div>
+{% endblock %}

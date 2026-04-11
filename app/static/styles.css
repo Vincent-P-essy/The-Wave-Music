@@ -1,0 +1,332 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Layout Wrapper */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background-color: #1e1e1e;
+    color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header a:hover {
+    color: #ff6347;
+}
+
+/* Footer */
+footer {
+    background-color: #1e1e1e;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Content */
+main {
+    flex: 1; /* Allow main to grow and fill available space */
+    padding: 5rem 2rem 3rem; /* Add space for fixed header and footer */
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    overflow: auto;
+}
+
+/* Buttons */
+button {
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff4500;
+}
+
+/* Forms */
+form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 2rem auto;
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+form input[type="email"],
+form input[type="password"],
+form input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form input:focus {
+    border-color: #ff6347;
+    outline: none;
+}
+
+/* Flash Messages */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+li.success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 0.5rem;
+    border-left: 5px solid #28a745;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+li.danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 0.5rem;
+    border-left: 5px solid #dc3545;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    header nav {
+        flex-direction: column;
+    }
+
+    header a {
+        margin: 0.5rem 0;
+    }
+
+    main {
+        padding: 6rem 1rem 4rem; /* Adjust padding for smaller devices */
+    }
+
+    form {
+        width: 90%;
+    }
+
+    .list-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 1rem;
+    text-align: left;
+}
+
+table th, table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+table td {
+    color: #333;
+}
+
+/* General Reset for List */
+.list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: #1e1e1e;
+    color: #fff;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-body p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.card-body .highlight {
+    font-weight: bold;
+    color: #ff6347; /* Highlight color */
+}
+
+/* Header for morceau cards */
+.card-morceau .card-header {
+    background-color: #007bff;  /* Accent color */
+    color: #fff;
+    padding: 10px;  /* Reduced padding */
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+}
+
+/* Title styling for morceaux */
+.card-morceau .song-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Body styling for morceau cards */
+.card-morceau .card-body {
+    padding: 10px;  /* Reduced padding */
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Highlight important details (like duration) */
+.card-morceau .highlight {
+    font-weight: bold;
+    color: #007bff;  /* Accent color */
+}
+
+/* Ensure all cards have the same size */
+.card-morceau {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for morceau cards */
+.card-morceau:hover {
+    transform: scale(1.05);  /* Slightly increase the size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Increase shadow for a more pronounced effect */
+}
+
+/* Button styling for morceau card */
+.card-morceau .btn {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 1em;
+    margin-top: auto; /* Ensure the button is aligned at the bottom */
+}
+
+.card-morceau .btn:hover {
+    background-color: #218838;
+}
+
+.badge {
+    background-color: #4400ff;
+    color: white;
+    padding: 0.5em;
+    border-radius: 0.25em;
+    font-size: 1em;
+}
+
+/* the form inside card-morceau is not completely inside the card */
+.card-morceau form {
+    margin-top: auto;
+    background: inherit;
+    padding: 1rem;
+    border-radius: inherit;
+    box-shadow: inherit;
+    width: 100%;
+}
