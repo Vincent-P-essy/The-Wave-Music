@@ -4,15 +4,12 @@
 
 ---
 
-<!-- execution-capture -->
-## Execution preview
 
-![The-Wave-Music](docs/screenshots/application.png)
+## Aperçu
 
-![The-Wave-Music](docs/screenshots/execution.png)
+![Page de connexion de The Wave exécutée avec Flask](docs/screenshots/login-page.png)
 
-The actual Flask login page running locally. PostgreSQL music data, sign-in and audio playback are not covered by this capture. [Verification](docs/verification.md).
-<!-- /execution-capture -->
+Page de connexion réellement servie par Flask. Les vues du catalogue, la connexion utilisateur et les fonctions musicales nécessitent PostgreSQL et ne sont pas démontrées par cette capture.
 
 ##  Fonctionnalités
 
@@ -54,30 +51,23 @@ git clone https://github.com/Vincent-P-essy/The-Wave-Music.git
 cd The-Wave-Music
 ``` 
 
-Créer et activer un environnement virtuel :
+Créer un environnement virtuel et installer les dépendances épinglées :
+
+```bash
 python3 -m venv venv
 source venv/bin/activate
-Installer les dépendances :
 pip install -r requirements.txt
-Créer la base PostgreSQL :
-createdb thewave
-Importer la structure + données :
-psql -U postgres -d thewave -f thewave-2024_12_11_21_42_00-dump.sql
+```
 
-(Vous pouvez adapter le nom du fichier .sql si besoin)
+Le schéma et les données PostgreSQL fournis se trouvent dans `sql/schema.sql` et `sql/dump.sql`. Le code utilise actuellement une connexion locale à la base `thewave` avec l’utilisateur PostgreSQL `postgres`. La configuration est définie dans `app/main.py` et `app/db.py` ; une variable `DATABASE_URL` seule ne la remplace pas.
 
-Configurer les variables d'environnement :
-export FLASK_APP=app.main:create_app
-export FLASK_ENV=development
-export DATABASE_URL=postgresql://postgres:password@localhost/thewave
+Lancer le serveur depuis la racine du dépôt :
 
-(Remplacer password par votre mot de passe PostgreSQL)
+```bash
+python3 -m flask --app app.main:create_app run --host 127.0.0.1 --port 8080
+```
 
-Lancer le serveur Flask :
-flask run
-Accéder à l'application :
-
-http://127.0.0.1:5000
+Ouvrir <http://127.0.0.1:8080/login> pour la page de connexion. Les autres vues nécessitent une base PostgreSQL préparée ; elles ne sont pas couvertes par l’aperçu ci-dessus.
 
 Auteur
 
