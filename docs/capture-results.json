@@ -1,0 +1,10 @@
+[
+  {
+    "root": ".",
+    "passed_commands": true,
+    "images": [
+      "docs/screenshots/application.png",
+      "docs/screenshots/execution.png"
+    ]
+  }
+]

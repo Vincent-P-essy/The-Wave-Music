@@ -4,6 +4,16 @@
 
 ---
 
+<!-- execution-capture -->
+## Execution preview
+
+![The-Wave-Music](docs/screenshots/application.png)
+
+![The-Wave-Music](docs/screenshots/execution.png)
+
+The actual Flask login page running locally. PostgreSQL music data, sign-in and audio playback are not covered by this capture. [Verification](docs/verification.md).
+<!-- /execution-capture -->
+
 ##  Fonctionnalités
 
 -  Connexion / inscription utilisateur
