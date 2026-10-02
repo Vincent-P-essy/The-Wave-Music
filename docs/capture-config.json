@@ -1,0 +1,48 @@
+{
+  "jobs": [
+    {
+      "root": ".",
+      "label": "The-Wave-Music",
+      "caption": "The actual Flask login page running locally. PostgreSQL music data, sign-in and audio playback are not covered by this capture.",
+      "setup": [
+        [
+          "python",
+          "-m",
+          "pip",
+          "install",
+          "-r",
+          "requirements.txt"
+        ],
+        [
+          "python",
+          "-m",
+          "pip",
+          "install",
+          "psycopg[binary]"
+        ]
+      ],
+      "commands": [
+        [
+          "python",
+          "-m",
+          "compileall",
+          "-q",
+          "app"
+        ]
+      ],
+      "server": [
+        "python",
+        "-m",
+        "flask",
+        "--app",
+        "app.main:create_app",
+        "run",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8650"
+      ],
+      "path": "/login"
+    }
+  ]
+}
