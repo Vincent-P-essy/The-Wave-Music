@@ -59,7 +59,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Le schéma et les données PostgreSQL fournis se trouvent dans `sql/schema.sql` et `sql/dump.sql`. Le code utilise actuellement une connexion locale à la base `thewave` avec l’utilisateur PostgreSQL `postgres`. La configuration est définie dans `app/main.py` et `app/db.py` ; une variable `DATABASE_URL` seule ne la remplace pas.
+Le schéma et les données PostgreSQL fournis se trouvent dans `sql/dump.sql` ; `sql/schema.sql` et `sql/queries.sql` sont actuellement vides. Ce dump PostgreSQL 16 recrée la base `thewave` et utilise la locale `en_US.utf8` : prévoir une instance locale de démonstration adaptée. Le code utilise actuellement une connexion locale à la base `thewave` avec l’utilisateur PostgreSQL `postgres`. La configuration est définie dans `app/main.py` et `app/db.py` ; une variable `DATABASE_URL` seule ne la remplace pas.
 
 Lancer le serveur depuis la racine du dépôt :
 
