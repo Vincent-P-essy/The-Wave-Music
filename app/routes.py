@@ -338,7 +338,7 @@ def album_page(album_id):
         numAlb=album_data[0],
         titreAlbum=album_data[1],
         dateParution=album_data[2],
-        description=album_data[3]
+        description=album_data[4]
     )
     
     with connect() as conn:
@@ -476,9 +476,9 @@ def suggestions():
                 FROM dataset.morceau m
                 JOIN dataset.apparait_dans ad ON m."numMorc" = ad."numMorc"
                 JOIN dataset.artiste a ON ad."numArt" = a."numArt"
-                WHERE ad."numArt" IN %s
+                WHERE ad."numArt" = ANY(%s)
                 GROUP BY m."numMorc"
-            """, (tuple(artiste['numArt'] for artiste in top_artistes),))
+            """, ([artiste['numArt'] for artiste in top_artistes],))
             morceaux_suggeres = [
                 {
                     'numMorc': row[0],
@@ -602,7 +602,9 @@ def playlist_page(playlist_id):
                 for row in cursor.fetchall()
             ]
                 
-    if playlist.visibilite == 'private' and createur != current_user:
+    if playlist.visibilite == 'private' and (
+        createur is None or createur['numUsr'] != current_user.numUsr
+    ):
         flash("Vous n'avez pas le droit d'accès à cette playlist privée.", 'danger')
         print("L'utilisateur n'a pas le droit d'accès à cette playlist privée.")
         return redirect(request.referrer or url_for('main.home'))

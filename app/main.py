@@ -1,3 +1,6 @@
+import os
+import secrets
+
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -5,14 +8,19 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 login_manager = LoginManager()
 
-def create_app():
+def create_app(config=None):
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'the-wave-secret-key'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/thewave'
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or secrets.token_hex(32)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+        'DATABASE_URL', 'postgresql://postgres@localhost:5432/thewave'
+    )
+    if config:
+        app.config.update(config)
     
     # Initialiser les extensions
     db.init_app(app)
     login_manager.init_app(app)
+    login_manager.login_view = 'main.login'
 
     # Enregistrer les Blueprints
     from .routes import main
@@ -22,10 +30,16 @@ def create_app():
 
 @login_manager.user_loader
 def load_user(user_id):
+    try:
+        user_id = int(user_id)
+    except (TypeError, ValueError):
+        return None
+    if user_id < 1:
+        return None
     from .db import connect
     with connect() as conn:
         with conn.cursor() as cursor:
-            cursor.execute('SELECT * FROM dataset.utilisateur WHERE "numUsr" = %s', (user_id))
+            cursor.execute('SELECT * FROM dataset.utilisateur WHERE "numUsr" = %s', (user_id,))
             user_data = cursor.fetchone()
     if user_data:
         from .models import Utilisateur
